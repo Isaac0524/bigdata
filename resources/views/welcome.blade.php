@@ -13,13 +13,99 @@
 
     <script src="js/modernizr.js"></script>
     <script src="js/pace.min.js"></script>
-
-    <!-- SweetAlert CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <!-- favicons -->
     <link rel="icon" href="images/letter-c.png" type="image/x-icon">
 </head>
+<style>
+        .search-bar {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin: 20px auto;
+        text-align: left;
+    }
+
+    .search-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-label {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .form-label i {
+        margin-right: 5px;
+        color: #007BFF;
+    }
+
+    .search-input,
+    .date-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        background: #fff;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.3s ease;
+    }
+
+    .search-input:focus,
+    .date-input:focus {
+        border-color: #007BFF;
+        outline: none;
+    }
+
+    .date-helper-text {
+        font-size: 12px;
+        color: #888;
+        margin-top: 5px;
+    }
+
+    .search-button {
+        background: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .search-button i {
+        font-size: 18px;
+    }
+
+    .search-button:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .search-button:active {
+        background: #004080;
+        transform: translateY(0);
+    }
+
+</style>
 
 <body id="top">
 
@@ -49,11 +135,26 @@
                     </h1>
 
                     <!-- Formulaire de recherche -->
+                  <!-- Formulaire de recherche amélioré -->
                     <div class="search-bar" data-aos="fade-up">
-                        <form action="{{ route('weather.search') }}" method="POST">
+                        <form action="{{ route('weather.search') }}" method="POST" class="search-form">
                             @csrf
-                            <input type="text" class="search-input" name="query" placeholder="Entrez le nom du pays ou de la ville" required>
-                            <button class="search-button" type="submit">Rechercher</button>
+                            <div class="form-group">
+                                <label for="query" class="form-label">
+                                    <i class="fa fa-search"></i> Rechercher un lieu :
+                                </label>
+                                <input type="text" class="search-input" id="query" name="query" placeholder="Entrez le nom du pays ou de la ville" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="date" class="form-label">
+                                    <i class="fa fa-calendar"></i> Date (1995-2016) :
+                                </label>
+                                <input type="date" class="date-input" id="date" name="date" required>
+                                <p class="date-helper-text">La date doit être comprise entre janvier 1995 et décembre 2016.</p>
+                            </div>
+                            <button class="search-button" type="submit">
+                                <i class="fa fa-search"></i> Rechercher
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -102,6 +203,18 @@
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+    // Vérifier s'il existe un message d'erreur dans la session
+    @if (session()->has('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: '{{ session('error') }}',
+            confirmButtonColor: '#007BFF'
+        });
+    @endif
+</script>
        
 
 </body>

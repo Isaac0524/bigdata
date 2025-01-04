@@ -13,7 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            flex-direction: column;
+            flex-direction:  column;
             height: 100vh;
             background-color: #f4f4f9;
         }
@@ -91,35 +91,36 @@
     <div class="content">
         <!-- Carte -->
         <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps?q={{ urlencode($query) }}&hl=fr&z=10" 
-                frameborder="0" 
-                style="border:0" 
-                allowfullscreen=""
-                loading="lazy">
-            </iframe>
+        <iframe 
+            src="https://www.google.com/maps?q=Paris&hl=fr&z=10" 
+            frameborder="0" 
+            style="border:0" 
+            allowfullscreen=""
+            loading="lazy">
+        </iframe>   
         </div>
 
         <!-- Résultats de la recherche -->
         <div class="results">
             @if ($weathers->isNotEmpty())
                 <table>
+                <table>
                     <thead>
                         <tr>
-                            <th>Région</th>
                             <th>Pays</th>
-                            <th>État</th>
-                            <th>Ville</th>
+                            <th>Jour</th>
+                            <th>Mois</th>
+                            <th>Année</th>
                             <th>Température Moyenne (°C)</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($weathers as $weather)
                             <tr>
-                                <td>{{ $weather->region }}</td>
                                 <td>{{ $weather->country }}</td>
-                                <td>{{ $weather->state }}</td>
-                                <td>{{ $weather->city }}</td>
+                                <td>{{ $weather->day }}</td>
+                                <td>{{ $weather->month }}</td>
+                                <td>{{ $weather->year }}</td>
                                 <td>{{ number_format($weather->avg_temperature_celsius, 2) }} °C</td>
                             </tr>
                         @endforeach

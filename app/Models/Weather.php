@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Weather extends Model
 {
     protected $fillable = [
-        'region',
         'country',
         'state',
-        'city',
+        'Month',
+        'Day',
+        'Year',
         'avg_temperature',
     ];
 
